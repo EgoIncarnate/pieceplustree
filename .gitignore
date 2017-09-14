@@ -1,0 +1,8 @@
+piece-table.o
+test-piece-table
+*.gcno
+*.gcda
+timed
+test-linked-array
+test-iqueue
+*.swp
