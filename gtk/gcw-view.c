@@ -245,4 +245,5 @@ _gcw_view_disconnect (GcwView *self)
   g_assert (GCW_IS_VIEW (self));
   g_assert (priv->buffer != NULL);
 
+  g_clear_object (&priv->buffer);
 }
