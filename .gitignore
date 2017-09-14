@@ -1,4 +1,5 @@
 piece-table.o
+gtk-widget
 test-piece-table
 *.gcno
 *.gcda

@@ -1,6 +1,6 @@
 all: test-piece-table timed test-linked-array test-iqueue
 
-PKGS = glib-2.0
+PKGS = glib-2.0 gtk+-3.0
 CFLAGS = $(shell pkg-config --cflags $(PKGS))
 LDFLAGS = $(shell pkg-config --libs $(PKGS))
 
@@ -22,6 +22,9 @@ test-linked-array: test-linked-array.c linked-array.h iqueue.h
 
 timed: timed.c piece-table.c piece-table.h iqueue.h linked-array.h
 	$(CC) -o $@ $(WARNINGS) $(CFLAGS) $(LDFLAGS) $(DEBUG) $(OPTS) timed.c piece-table.c
+
+gtk-widget: piece-table.c gtk/gcw-view.h gtk/gcw-view.c gtk/main.c
+	$(CC) -o $@ $(WARNINGS) $(CFLAGS) $(LDFLAGS) $(DEBUG) $(OPTS) piece-table.c gtk/gcw-view.c gtk/main.c
 
 clean:
 	rm -f test-piece-table *.o *.gcno *.gcda timed test-linked-array test-iqueue
