@@ -24,7 +24,8 @@ You can also use it to scan backwards, should that be necessary.
 Instead of storing calculated lengths in the internal and leaf nodes we store them with the parent.
 Note that we do not store offsets within the nodes (with the exception of the PieceTableEntry, but that is external data as far as we are concerned).
 We must walk the tree to calculate the offset by summing the length information of each element.
-Since our data is cacheline friendly, this is an acceptable cost.
+This is not expensive because we are already walking the tree as we search to find the target node.
+Calculating the offset prevents us from using `bsearch()` within the node, but given the cacheline friendliness, it's not cumbersome.
 
 The "stupid" implementation I started with just kept things as an array and would `memmove()` to keep items sorted.
 When doing lots of insertions we would spend a great deal of time just shuffling data.
