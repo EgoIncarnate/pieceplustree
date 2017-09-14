@@ -31,7 +31,7 @@ The "stupid" implementation I started with just kept things as an array and woul
 When doing lots of insertions we would spend a great deal of time just shuffling data.
 Then I remembered a trick I'd seen in some B-Tree indexes years ago.
 You can grow data from one edge of the leaf and sort the elements using the other end of the leaf.
-That way you aren't `memmove()`ing, but instead just shuffling a queue around.
+That way you aren't `memmove()`ing, but instead just minimalling shuffling a queue where you already have O(1) access to the effected queue link.
 
 Each queue element is in the matching bucket as the real data.
 It has a `previous` and `next` bucket identifier and generally works like a linked-list-based queue but without pointers.
