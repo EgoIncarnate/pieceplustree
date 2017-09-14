@@ -39,3 +39,10 @@ We do have one invariant that must be kept across all nodes.
 The data elements must not have gaps in them (so we know how to quickly place new elements without finding a free slot).
 Since we have a queue for sorting, we can just fast-removal in the array by taking the tail element and moving it into the removed elements position.
 Then we just update the queue which is `O(1)` because we know our positioning.
+
+## TODO
+
+ * While we have delete support, we don't yet have tree node delete phases implemented.
+   I expect this to be tricky, so I'm still thinking about it.
+ * To make this useful, we'll need some useful operation tracking added (to aid in undo/redo).
+
