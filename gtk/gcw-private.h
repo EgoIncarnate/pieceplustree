@@ -1,4 +1,4 @@
-/* gcw-view.h
+/* gcw-private.h
  *
  * Copyright (C) 2017 Christian Hergert <chergert@redhat.com>
  *
@@ -18,30 +18,15 @@
 
 #pragma once
 
-#include <gtk/gtk.h>
-
 #include "gcw-buffer.h"
+#include "gcw-view.h"
 
 G_BEGIN_DECLS
 
-#define GCW_TYPE_VIEW (gcw_view_get_type())
+void _gcw_buffer_lower_priority (GcwBuffer *self);
+void _gcw_buffer_raise_priority (GcwBuffer *self);
 
-G_DECLARE_DERIVABLE_TYPE (GcwView, gcw_view, GCW, VIEW, GtkWidget)
-
-struct _GcwViewClass
-{
-  GtkWidgetClass parent;
-
-  GcwBuffer *(*get_buffer) (GcwView   *self);
-  void       (*set_buffer) (GcwView   *self,
-                            GcwBuffer *buffer);
-
-	gpointer _reserved[64];
-};
-
-GtkWidget *gcw_view_new        (void);
-GcwBuffer *gcw_view_get_buffer (GcwView   *self);
-void       gcw_view_set_buffer (GcwView   *self,
-                                GcwBuffer *buffer);
+void _gcw_view_disconnect       (GcwView   *view);
+void _gcw_view_connect          (GcwView   *view);
 
 G_END_DECLS

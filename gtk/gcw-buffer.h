@@ -1,4 +1,4 @@
-/* gcw-view.h
+/* gcw-buffer.h
  *
  * Copyright (C) 2017 Christian Hergert <chergert@redhat.com>
  *
@@ -20,28 +20,19 @@
 
 #include <gtk/gtk.h>
 
-#include "gcw-buffer.h"
-
 G_BEGIN_DECLS
 
-#define GCW_TYPE_VIEW (gcw_view_get_type())
+#define GCW_TYPE_BUFFER (gcw_buffer_get_type())
 
-G_DECLARE_DERIVABLE_TYPE (GcwView, gcw_view, GCW, VIEW, GtkWidget)
+G_DECLARE_DERIVABLE_TYPE (GcwBuffer, gcw_buffer, GCW, BUFFER, GObject)
 
-struct _GcwViewClass
+struct _GcwBufferClass
 {
-  GtkWidgetClass parent;
+  GObjectClass parent_class;
 
-  GcwBuffer *(*get_buffer) (GcwView   *self);
-  void       (*set_buffer) (GcwView   *self,
-                            GcwBuffer *buffer);
-
-	gpointer _reserved[64];
+  gpointer _reserved[64];
 };
 
-GtkWidget *gcw_view_new        (void);
-GcwBuffer *gcw_view_get_buffer (GcwView   *self);
-void       gcw_view_set_buffer (GcwView   *self,
-                                GcwBuffer *buffer);
+GcwBuffer *gcw_buffer_new (void);
 
 G_END_DECLS
