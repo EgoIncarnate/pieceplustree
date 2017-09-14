@@ -38,8 +38,8 @@ It has a `previous` and `next` bucket identifier and generally works like a link
 
 We do have one invariant that must be kept across all nodes.
 The data elements must not have gaps in them (so we know how to quickly place new elements without finding a free slot).
-Since we have a queue for sorting, we can just fast-removal in the array by taking the tail element and moving it into the removed elements position.
-Then we just update the queue which is `O(1)` because we know our positioning.
+Since we have a queue for sorting, we can use fast-removal in the array by taking the tail element and moving it into the removed element position.
+Then we update the queue which is `O(1)` as we already know our raw bucket position.
 
 ## TODO
 
