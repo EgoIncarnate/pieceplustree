@@ -168,6 +168,11 @@ gcw_view_class_init (GcwViewClass *klass)
 static void
 gcw_view_init (GcwView *self)
 {
+  GcwViewPrivate *priv = gcw_view_get_instance_private (self);
+
+  priv->buffer = gcw_buffer_new ();
+
+  _gcw_view_connect (self);
 }
 
 /**
