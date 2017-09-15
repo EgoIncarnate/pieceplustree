@@ -64,7 +64,7 @@ gcw_view_real_set_buffer (GcwView   *self,
     }
 }
 
-static void
+static gboolean
 gcw_view_focus_in_event (GtkWidget     *widget,
                          GdkEventFocus *focus)
 {
@@ -74,10 +74,10 @@ gcw_view_focus_in_event (GtkWidget     *widget,
   if (priv->buffer != NULL)
     _gcw_buffer_raise_priority (priv->buffer);
 
-  GTK_WIDGET_CLASS (gcw_view_parent_class)->focus_in_event (widget, focus);
+  return GTK_WIDGET_CLASS (gcw_view_parent_class)->focus_in_event (widget, focus);
 }
 
-static void
+static gboolean
 gcw_view_focus_out_event (GtkWidget     *widget,
                           GdkEventFocus *focus)
 {
@@ -87,7 +87,7 @@ gcw_view_focus_out_event (GtkWidget     *widget,
   if (priv->buffer != NULL)
     _gcw_buffer_lower_priority (priv->buffer);
 
-  GTK_WIDGET_CLASS (gcw_view_parent_class)->focus_in_event (widget, focus);
+  return GTK_WIDGET_CLASS (gcw_view_parent_class)->focus_in_event (widget, focus);
 }
 
 static void

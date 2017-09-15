@@ -49,8 +49,6 @@ gcw_buffer_get_property (GObject    *object,
                          GValue     *value,
                          GParamSpec *pspec)
 {
-  GcwBuffer *self = GCW_BUFFER (object);
-
   switch (prop_id)
     {
     default:
@@ -64,8 +62,6 @@ gcw_buffer_set_property (GObject      *object,
                          const GValue *value,
                          GParamSpec   *pspec)
 {
-  GcwBuffer *self = GCW_BUFFER (object);
-
   switch (prop_id)
     {
     default:

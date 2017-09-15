@@ -23,8 +23,8 @@ test-linked-array: test-linked-array.c linked-array.h iqueue.h
 timed: timed.c piece-table.c piece-table.h iqueue.h linked-array.h
 	$(CC) -o $@ $(WARNINGS) $(CFLAGS) $(LDFLAGS) $(DEBUG) $(OPTS) timed.c piece-table.c
 
-gtk-widget: piece-table.c gtk/gcw-view.h gtk/gcw-view.c gtk/main.c gtk/gcw-buffer.c gtk/gcw-buffer.h
-	$(CC) -o $@ $(WARNINGS) $(CFLAGS) $(LDFLAGS) $(DEBUG) $(OPTS) piece-table.c gtk/gcw-view.c gtk/main.c gtk/gcw-buffer.c
+gtk-widget: piece-table.c gtk/gcw-view.h gtk/gcw-view.c gtk/main.c gtk/gcw-buffer.c gtk/gcw-buffer.h gtk/gcw-view-page.c gtk/gcw-view-page.h
+	$(CC) -o $@ $(WARNINGS) $(CFLAGS) $(LDFLAGS) $(DEBUG) $(OPTS) piece-table.c gtk/gcw-view.c gtk/main.c gtk/gcw-buffer.c gtk/gcw-view-page.c
 
 clean:
 	rm -f test-piece-table *.o *.gcno *.gcda timed test-linked-array test-iqueue gtk-widget
