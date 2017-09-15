@@ -22,17 +22,46 @@
 typedef struct
 {
   GcwBuffer *buffer;
+
+  GtkAdjustment *hadjustment;
+  GtkAdjustment *vadjustment;
+
+  GtkScrollablePolicy hscroll_policy;
+  GtkScrollablePolicy vscroll_policy;
 } GcwViewPrivate;
 
-G_DEFINE_TYPE_WITH_PRIVATE (GcwView, gcw_view, GTK_TYPE_WIDGET)
+G_DEFINE_TYPE_WITH_CODE (GcwView, gcw_view, GTK_TYPE_WIDGET,
+                         G_ADD_PRIVATE (GcwView)
+                         G_IMPLEMENT_INTERFACE (GTK_TYPE_SCROLLABLE, NULL))
 
 enum {
   PROP_0,
   PROP_BUFFER,
+  PROP_HADJUSTMENT,
+  PROP_HSCROLL_POLICY,
+  PROP_VADJUSTMENT,
+  PROP_VSCROLL_POLICY,
   N_PROPS
 };
 
 static GParamSpec *properties [N_PROPS];
+
+static void
+gcw_view_set_hadjustment (GcwView       *self,
+                          GtkAdjustment *hadjustment)
+{
+  g_return_if_fail (GCW_IS_VIEW (self));
+  g_return_if_fail (!hadjustment || GTK_IS_ADJUSTMENT (hadjustment));
+}
+
+static void
+gcw_view_set_vadjustment (GcwView       *self,
+                          GtkAdjustment *vadjustment)
+{
+  g_return_if_fail (GCW_IS_VIEW (self));
+  g_return_if_fail (!vadjustment || GTK_IS_ADJUSTMENT (vadjustment));
+
+}
 
 static GcwBuffer *
 gcw_view_real_get_buffer (GcwView *self)
@@ -108,11 +137,28 @@ gcw_view_get_property (GObject    *object,
                        GParamSpec *pspec)
 {
   GcwView *self = GCW_VIEW (object);
+  GcwViewPrivate *priv = gcw_view_get_instance_private (self);
 
   switch (prop_id)
     {
     case PROP_BUFFER:
       g_value_set_object (value, gcw_view_get_buffer (self));
+      break;
+
+    case PROP_HADJUSTMENT:
+      g_value_set_object (value, priv->hadjustment);
+      break;
+
+    case PROP_VADJUSTMENT:
+      g_value_set_object (value, priv->vadjustment);
+      break;
+
+    case PROP_HSCROLL_POLICY:
+      g_value_set_enum (value, priv->hscroll_policy);
+      break;
+
+    case PROP_VSCROLL_POLICY:
+      g_value_set_enum (value, priv->vscroll_policy);
       break;
 
     default:
@@ -127,11 +173,28 @@ gcw_view_set_property (GObject      *object,
                        GParamSpec   *pspec)
 {
   GcwView *self = GCW_VIEW (object);
+  GcwViewPrivate *priv = gcw_view_get_instance_private (self);
 
   switch (prop_id)
     {
     case PROP_BUFFER:
       gcw_view_set_buffer (self, g_value_get_object (value));
+      break;
+
+    case PROP_HADJUSTMENT:
+      gcw_view_set_hadjustment (self, g_value_get_object (value));
+      break;
+
+    case PROP_VADJUSTMENT:
+      gcw_view_set_vadjustment (self, g_value_get_object (value));
+      break;
+
+    case PROP_HSCROLL_POLICY:
+      priv->hscroll_policy = g_value_get_enum (value);
+      break;
+
+    case PROP_VSCROLL_POLICY:
+      priv->vscroll_policy = g_value_get_enum (value);
       break;
 
     default:
@@ -162,7 +225,39 @@ gcw_view_class_init (GcwViewClass *klass)
                          GCW_TYPE_BUFFER,
                          (G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
 
+  properties [PROP_HADJUSTMENT] =
+    g_param_spec_object ("hadjustment",
+                         "HAdjustment",
+                         "Horizontal adjustment",
+                         GTK_TYPE_ADJUSTMENT,
+                         (G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+
+  properties [PROP_HSCROLL_POLICY] =
+    g_param_spec_enum ("hscroll-policy",
+                       "Hscrollbar policy",
+                       "The horizontal scrollbar policy",
+                       GTK_TYPE_SCROLLABLE_POLICY,
+                       GTK_SCROLL_NATURAL,
+                       (G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+
+  properties [PROP_VADJUSTMENT] =
+    g_param_spec_object ("vadjustment",
+                         "VAdjustment",
+                         "Vertical adjustment",
+                         GTK_TYPE_ADJUSTMENT,
+                         (G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+
+  properties [PROP_VSCROLL_POLICY] =
+    g_param_spec_enum ("vscroll-policy",
+                       "Vscrollbar policy",
+                       "The vertical scrollbar policy",
+                       GTK_TYPE_SCROLLABLE_POLICY,
+                       GTK_SCROLL_NATURAL,
+                       (G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS));
+
   g_object_class_install_properties (object_class, N_PROPS, properties);
+
+  gtk_widget_class_set_css_name (widget_class, "gcwview");
 }
 
 static void
