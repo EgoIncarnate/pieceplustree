@@ -22,8 +22,8 @@
 #include "linked-array.h"
 #include "piece-table.h"
 
-#define PIECE_TREE_BRANCH_FANOUT (30)
-#define PIECE_TREE_LEAF_FANOUT   (30)
+#define PIECE_TREE_BRANCH_FANOUT (26)
+#define PIECE_TREE_LEAF_FANOUT   (26)
 #define PIECE_TREE_MAX_LENGTH    (G_MAXUINT64 >> 1)
 
 #ifndef G_DISABLE_ASSERT
