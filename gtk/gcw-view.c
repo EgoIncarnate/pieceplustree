@@ -170,6 +170,8 @@ gcw_view_init (GcwView *self)
 {
   GcwViewPrivate *priv = gcw_view_get_instance_private (self);
 
+  gtk_widget_set_has_window (GTK_WIDGET (self), FALSE);
+
   priv->buffer = gcw_buffer_new ();
 
   _gcw_view_connect (self);
