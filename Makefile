@@ -1,4 +1,4 @@
-all: test-piece-table timed test-linked-array test-iqueue
+all: test-piece-table timed test-linked-array test-iqueue gtk-widget
 
 PKGS = glib-2.0 gtk+-3.0
 CFLAGS = $(shell pkg-config --cflags $(PKGS))
