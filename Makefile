@@ -1,6 +1,6 @@
 all: test-piece-table timed test-linked-array test-iqueue gtk-widget
 
-PKGS = glib-2.0 gtk+-3.0
+PKGS = glib-2.0 gtk+-4.0
 CFLAGS = $(shell pkg-config --cflags $(PKGS))
 LDFLAGS = $(shell pkg-config --libs $(PKGS))
 
