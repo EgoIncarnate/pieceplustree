@@ -52,7 +52,6 @@ G_BEGIN_DECLS
  */
 #define LINKED_ARRAY_INIT(FIELD)            \
   G_STMT_START {                            \
-    memset ((FIELD), 0, sizeof (*(FIELD))); \
     IQUEUE_INIT(&(FIELD)->q);               \
   } G_STMT_END
 

@@ -44,7 +44,6 @@ G_BEGIN_DECLS
 
 #define IQUEUE_INIT(Node)                \
   G_STMT_START {                         \
-    memset ((Node), 0, sizeof *(Node));  \
     (Node)->length = 0;                  \
     (Node)->head = IQUEUE_INVALID(Node); \
     (Node)->tail = IQUEUE_INVALID(Node); \
