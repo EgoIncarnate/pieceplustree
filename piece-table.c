@@ -178,14 +178,18 @@ piece_tree_node_new (PieceTreeNodeKind kind)
 
   g_assert (kind == PIECE_TREE_NODE_LEAF || kind == PIECE_TREE_NODE_BRANCH);
 
-  node = g_slice_new0 (PieceTreeNode);
+  node = g_slice_new (PieceTreeNode);
   node->any.kind = kind;
   node->any.parent = NULL;
 
   if (kind == PIECE_TREE_NODE_BRANCH)
     LINKED_ARRAY_INIT (&node->branch.children);
   else
-    LINKED_ARRAY_INIT (&node->leaf.entries);
+    {
+      LINKED_ARRAY_INIT (&node->leaf.entries);
+      node->leaf.prev = NULL;
+      node->leaf.next = NULL;
+    }
 
   return node;
 }
