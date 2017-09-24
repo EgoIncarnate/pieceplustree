@@ -32,7 +32,6 @@
 # define DEBUG_VALIDATE(a,b)
 #endif
 
-typedef enum   _PieceTreeNodeKind   PieceTreeNodeKind;
 typedef struct _PieceTreeNodeAny    PieceTreeNodeAny;
 typedef struct _PieceTreeNodeBranch PieceTreeNodeBranch;
 typedef struct _PieceTreeNodeLeaf   PieceTreeNodeLeaf;
@@ -46,11 +45,11 @@ piece_tree_node_validate (PieceTreeNode *node,
                           PieceTreeNode *parent);
 #endif
 
-enum _PieceTreeNodeKind
+typedef enum
 {
   PIECE_TREE_NODE_BRANCH = 0,
   PIECE_TREE_NODE_LEAF   = 1,
-};
+} PieceTreeNodeKind;
 
 struct _PieceTreeChild
 {
